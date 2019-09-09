@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #wrap {
+      width: 500px;
+      margin: 0 auto;
+    }
+
+    #cirleSet {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrap">
+    <canvas id="cirleSet" width="500px" height="800px">
+      your browser not support canvas
+    </canvas>
+  </div>
+  <script>
+    var cirleSet = document.getElementById("cirleSet")
+    var ctx = cirleSet.getContext('2d')
+    for (let i = 0; i < 100; i++) {
+      ctx.beginPath()
+      let x = Math.floor(Math.random() * 500)
+      let y = Math.floor(Math.random() * 800)
+      let r = Math.floor(Math.random() * 5 + 5)
+      let rgbar = Math.floor(Math.random() * 255)
+      let rgbag = Math.floor(Math.random() * 255)
+      let rgbab = Math.floor(Math.random() * 255)
+      ctx.fillStyle = "rgb(" + rgbar + "," + rgbag + "," + rgbab + ")"
+      ctx.arc(x, y, r, 0, 2 * Math.PI)
+      ctx.fill()
+      console.log(rgbar, rgbag, rgbab)
+    }
+    
+
+  </script>
+</body>
+
+</html>
