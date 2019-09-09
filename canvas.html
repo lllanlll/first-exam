@@ -20,28 +20,49 @@
 
 <body>
   <div id="wrap">
-    <canvas id="cirleSet" width="500px" height="800px">
+    <canvas id="cirleSet" width="600px" height="800px">
       your browser not support canvas
     </canvas>
   </div>
   <script>
     var cirleSet = document.getElementById("cirleSet")
     var ctx = cirleSet.getContext('2d')
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 30; i++) {
       ctx.beginPath()
-      let x = Math.floor(Math.random() * 500)
+      let x = Math.floor(Math.random() * 200)
       let y = Math.floor(Math.random() * 800)
       let r = Math.floor(Math.random() * 5 + 5)
-      let rgbar = Math.floor(Math.random() * 255)
-      let rgbag = Math.floor(Math.random() * 255)
-      let rgbab = Math.floor(Math.random() * 255)
+      let rgbar = Math.floor(Math.random() * 80)
+      let rgbag = Math.floor(Math.random() * 80)
+      let rgbab = Math.floor(Math.random() * 80)
       ctx.fillStyle = "rgb(" + rgbar + "," + rgbag + "," + rgbab + ")"
       ctx.arc(x, y, r, 0, 2 * Math.PI)
       ctx.fill()
-      console.log(rgbar, rgbag, rgbab)
     }
-    
-
+    for (let i = 0; i < 30; i++) {
+      ctx.beginPath()
+      let x = Math.floor(Math.random() * 200 + 200)
+      let y = Math.floor(Math.random() * 800)
+      let r = Math.floor(Math.random() * 5 + 5)
+      let rgbar = Math.floor(Math.random() * 80 + 80)
+      let rgbag = Math.floor(Math.random() * 80 + 80)
+      let rgbab = Math.floor(Math.random() * 80 + 80)
+      ctx.fillStyle = "rgb(" + rgbar + "," + rgbag + "," + rgbab + ")"
+      ctx.arc(x, y, r, 0, 2 * Math.PI)
+      ctx.fill()
+    }
+    for (let i = 0; i < 30; i++) {
+      ctx.beginPath()
+      let x = Math.floor(Math.random() * 200 + 400)
+      let y = Math.floor(Math.random() * 800)
+      let r = Math.floor(Math.random() * 5 + 5)
+      let rgbar = Math.floor(Math.random() * 80 + 160)
+      let rgbag = Math.floor(Math.random() * 80 + 160)
+      let rgbab = Math.floor(Math.random() * 80 + 160)
+      ctx.fillStyle = "rgb(" + rgbar + "," + rgbag + "," + rgbab + ")"
+      ctx.arc(x, y, r, 0, 2 * Math.PI)
+      ctx.fill()
+    }
   </script>
 </body>
 
