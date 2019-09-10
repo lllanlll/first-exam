@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>Document</title>
+  <style>
+    #cin {
+      width: 500px;
+      height: 50px;
+      margin: 0 auto;
+      margin-top: 300px;
+      border: 1px solid #eee;
+      line-height: 50px;
+      border-radius: 5px;
+    }
+
+    #searchBox {
+      width: 500px;
+      border: 1px solid #eee;
+      margin-left: 710px;
+      height: 300px;
+      overflow: scroll;
+      padding-top: 10px;
+    }
+
+    #search {
+      width: 450px;
+      height: 35px;
+      margin-left: 25px;
+      border-radius: 10px;
+      outline: none;
+      border: 1px solid rgb(213, 213, 213);
+    }
+
+    .itemClas {
+      /* background-color: antiquewhite; */
+      font-size: 16px;
+      padding: 10px 0 10px 25px;
+    }
+
+    /* .fa-space-shuttle {
+      position: relative;
+      font-size: 35px;
+      left: 1130px;
+      cursor: pointer;
+    } */
+    .left {
+      float: left;
+      padding: 5px;
+    }
+
+    .right {
+      float: right;
+    }
+
+    .fa-plus-square-o {
+      font-size: 50px;
+      cursor: pointer;
+    }
+
+    .inputEle {
+      height: 40px;
+      line-height: 30px;
+      float: left;
+      border-radius: 5px;
+      border: 1px solid #eee;
+      margin-right: 5px;
+      padding: 5px;
+    }
+
+    .fa-close {
+      cursor: pointer;
+      color: blue;
+    }
+    ul li {
+      list-style: none;
+    }
+    .checkBox {
+      display: block;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      width: 440px;
+      margin-left: 30px;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div id="cin">
+      <div id="cinEle" class="left">
+        <div class="inputEle" v-for="item in inputList" :key="item.id">
+          {{ item.text }} <i class="fa fa-close" @click="removeEle(item.id)"></i>
+        </div>
+      </div>
+      <div class="right">
+        <i class="fa fa-plus-square-o" @click="showSearch"></i>
+      </div>
+    </div>
+    <div id="searchBox" v-show="show">
+      <input type="text" name="serach" id="search" placeholder="搜索" v-model="inputValue" @keyup="throttle" ref="input">
+      <ul v-show="state" class="checkBox">
+        <li v-for="(item,index) in checkList" :key="index">
+          <span>{{ item.text }}</span>
+        </li>
+      </ul>
+      <div class="itemClas" v-for="(item, index) in list" :key="item.id">
+        <i class="fa fa-square-o" @click="presed(item.id)"
+          :class="item.isPres === true ? 'fa fa-check-square' : '' "></i>
+        {{ item.text }}
+      </div>
+      
+    </div>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        list: [{
+          id: '001',
+          text: "变更中",
+          isPres: false
+        }, {
+          id: '002',
+          text: "未生效",
+          isPres: false
+        }, {
+          id: '003',
+          text: "作废",
+          isPres: false
+        }, {
+          id: '004',
+          text: "正常",
+          isPres: false
+        }, {
+          id: '005',
+          text: "审核中",
+          isPres: false
+        }, {
+          id: '006',
+          text: "test1",
+          isPres: false
+        }, {
+          id: '007',
+          text: "test2",
+          isPres: false
+        }, {
+          id: '008',
+          text: "test3",
+          isPres: false
+        }],
+        inputValue: '',
+        show: false,
+        state: false,
+        statu: true,
+        checkList: [],
+        inputList: []
+      },
+      methods: {
+        showSearch: function () {
+          this.show = !this.show
+        },
+        presed: function (id) {
+          let item = parseInt(id)
+          item--
+          let da = this.list[item]
+          da.isPres = !da.isPres
+          if (da.isPres) {
+            this.inputList.push(da)
+          } else {
+            this.removeEle(id)
+            da.isPres = !da.isPres
+          }
+        },
+        removeEle: function (eleId) {
+          let eleArr = this.inputList
+          let allLen = eleArr.length
+          for (let i = 0; i < allLen; i++) {
+            if (eleArr[i].id == eleId) {
+              let item = parseInt(eleId)
+              item--
+              this.list[item].isPres = !this.list[item].isPres
+              let delEle = eleArr.splice(i, 1)
+            }
+          }
+        },
+        check: function () {
+          var i = 0
+          console.log(i++)
+          this.inputvValue = this.$refs.input.value
+          if (this.inputValue.length > 0) {
+            this.state = true
+          } else {
+            this.state = false
+          }
+          this.checkList = []
+          this.list.map((msg) => {
+            if (msg.text.indexOf(this.inputValue) != -1 || msg.id.indexOf(this.inputValue) != -1) {
+              this.checkList.push(msg);
+            }
+          })
+        },
+        throttle() {
+          var that = this;
+          if (!that.statu) {
+            return;
+          }
+          that.statu = false;
+          setTimeout(function () {
+            console.log(new Date());
+            that.check();
+            that.statu = true;
+          }, 1000)
+        },
+      }
+
+    })
+  </script>
+</body>
+
+</html>
