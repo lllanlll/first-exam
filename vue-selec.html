@@ -111,6 +111,8 @@
       <input type="text" name="serach" id="search" placeholder="搜索" v-model="inputValue" @keyup="throttle" ref="input">
       <ul v-show="state" class="checkBox">
         <li v-for="(item,index) in checkList" :key="index">
+          <i class="fa fa-square-o" @click="presed(item.id)"
+            :class="item.isPres === true ? 'fa fa-check-square' : '' "></i>
           <span>{{ item.text }}</span>
         </li>
       </ul>
